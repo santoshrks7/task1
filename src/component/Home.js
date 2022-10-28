@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCard } from "../redux/cardListSlice";
+import { addCard, clearAllCard } from "../redux/cardListSlice";
 import ListItems from "./ListItems";
 
 const Home = () => {
@@ -17,6 +17,14 @@ const Home = () => {
   };
   return (
     <div className="row mt-5 p-5 d-flex flex-column-reverse flex-md-row  justify-content-between">
+      <div className="d-flex justify-content-center my-3">
+        <button
+          className="btn btn-outline-primary"
+          onClick={() => dispatch(clearAllCard())}
+        >
+          Remove all list
+        </button>{" "}
+      </div>
       <div className="col-12 col-md-8">
         <ListItems />
       </div>
