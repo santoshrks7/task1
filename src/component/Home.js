@@ -16,7 +16,7 @@ const Home = () => {
     if (inputRef.current.value !== "") {
       dispatch(addList(inputRef.current.value));
       inputRef.current.value = "";
-      setErrors(!error);
+      setErrors(false);
     } else {
       setErrors(!error);
     }
