@@ -4,18 +4,18 @@ const initialState = {
   cardListItem: [
     {
       name: "Teams",
-      listId: 1,
+      listId: 0,
       tasks: [
-        { id: 1, name: "task1" },
-        { id: 2, name: "task2" },
+        { id: 0, name: "react" },
+        { id: 1, name: "html" },
       ],
     },
     {
       name: "Products",
-      listId: 2,
+      listId: 1,
       tasks: [
-        { id: 1, name: "task3" },
-        { id: 2, name: "task4" },
+        { id: 0, name: "css" },
+        { id: 1, name: "sass" },
       ],
     },
   ],
@@ -26,16 +26,15 @@ const cardListSlice = createSlice({
   initialState,
   reducers: {
     // action creator , where the reducer change the state with the help of action creator
-    addCard: (state, action) => {
-      // state.cardListItem.push(action.payload);
+    addList: (state, action) => {
       state.cardListItem = [
         ...state.cardListItem,
         {
           name: action.payload,
-          listId: 3,
+          listId: state.cardListItem.length,
           tasks: [
-            { id: 1, name: "task3" },
-            { id: 2, name: "task4" },
+            { id: 0, name: "task3" },
+            { id: 1, name: "task4" },
           ],
         },
       ];
@@ -45,13 +44,32 @@ const cardListSlice = createSlice({
         return item.listId !== action.payload;
       });
     },
-    clearAllCard: (state) => {
+
+    addCard: (state, action) => {
+      const listId = action.payload;
+      state.cardListItem[listId].tasks = [
+        ...state.cardListItem[listId].tasks,
+        { id: state.cardListItem[listId].tasks.length, name: "text" },
+      ];
+    },
+
+    removeCard: (state, action) => {
+      const { listId, subItemId } = action.payload;
+      state.cardListItem[listId].tasks = state.cardListItem[
+        listId
+      ].tasks.filter((item) => {
+        return item.id !== subItemId;
+      });
+    },
+
+    clearAllList: (state) => {
       state.cardListItem = [];
     },
   },
   extraReducers: {},
 });
 
-export const { addCard, clearAllCard, removeList } = cardListSlice.actions;
+export const { addList, clearAllList, addCard, removeList, removeCard } =
+  cardListSlice.actions;
 
 export default cardListSlice.reducer;

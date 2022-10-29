@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCard, clearAllCard } from "../redux/cardListSlice";
+import { addList, clearAllList } from "../redux/cardListSlice";
 import ListItems from "./ListItems";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
 
   const handleList = (e) => {
     e.preventDefault();
-    dispatch(addCard(inputRef.current.value));
+    dispatch(addList(inputRef.current.value));
     inputRef.current.value = "";
   };
   return (
@@ -20,7 +20,7 @@ const Home = () => {
       <div className="d-flex justify-content-center my-3">
         <button
           className="btn btn-outline-primary"
-          onClick={() => dispatch(clearAllCard())}
+          onClick={() => dispatch(clearAllList())}
         >
           Remove all list
         </button>{" "}
