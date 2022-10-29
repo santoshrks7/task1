@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { addList, clearAllList } from "../redux/cardListSlice";
@@ -8,12 +9,16 @@ const Home = () => {
   const inputRef = useRef(null);
 
   const dispatch = useDispatch();
+  const [error, setErrors] = useState(false);
 
   const handleList = (e) => {
     e.preventDefault();
     if (inputRef.current.value !== "") {
       dispatch(addList(inputRef.current.value));
       inputRef.current.value = "";
+      setErrors(!error);
+    } else {
+      setErrors(!error);
     }
   };
   return (
@@ -39,6 +44,8 @@ const Home = () => {
               placeholder="Enter list title..."
               ref={inputRef}
             />
+            {error && <div className="text-danger">required</div>}
+
             <button type="submit" className="btn btn-dark my-2">
               Add List
             </button>
