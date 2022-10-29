@@ -6,18 +6,18 @@ const initialState = {
       name: "Teams",
       listId: 0,
       tasks: [
-        { id: 0, name: "react" },
-        { id: 1, name: "html" },
+        { id: 0, title: "react", desc: "desc" },
+        { id: 1, title: "html", desc: "desc" },
       ],
     },
-    {
-      name: "Products",
-      listId: 1,
-      tasks: [
-        { id: 0, name: "css" },
-        { id: 1, name: "sass" },
-      ],
-    },
+    // {
+    //   name: "Products",
+    //   listId: 1,
+    //   tasks: [
+    //     { id: 0, title: "css", desc: "desc" },
+    //     { id: 1, title: "sass", desc: "desc" },
+    //   ],
+    // },
   ],
 };
 
@@ -32,13 +32,11 @@ const cardListSlice = createSlice({
         {
           name: action.payload,
           listId: state.cardListItem.length,
-          tasks: [
-            { id: 0, name: "task3" },
-            { id: 1, name: "task4" },
-          ],
+          tasks: [],
         },
       ];
     },
+
     removeList: (state, action) => {
       state.cardListItem = state.cardListItem.filter((item) => {
         return item.listId !== action.payload;
@@ -46,10 +44,14 @@ const cardListSlice = createSlice({
     },
 
     addCard: (state, action) => {
-      const listId = action.payload;
+      const { listId, title, desc } = action.payload;
       state.cardListItem[listId].tasks = [
         ...state.cardListItem[listId].tasks,
-        { id: state.cardListItem[listId].tasks.length, name: "text" },
+        {
+          id: state.cardListItem[listId].tasks.length,
+          title: title,
+          desc: desc,
+        },
       ];
     },
 

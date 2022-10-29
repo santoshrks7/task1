@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addList, clearAllList } from "../redux/cardListSlice";
 import ListItems from "./ListItems";
 
@@ -12,11 +11,13 @@ const Home = () => {
 
   const handleList = (e) => {
     e.preventDefault();
-    dispatch(addList(inputRef.current.value));
-    inputRef.current.value = "";
+    if (inputRef.current.value !== "") {
+      dispatch(addList(inputRef.current.value));
+      inputRef.current.value = "";
+    }
   };
   return (
-    <div className="row mt-5 p-5 d-flex flex-column-reverse flex-md-row  justify-content-between">
+    <div className="row mt-5 p-3 p-md-5 d-flex flex-column-reverse flex-md-row  justify-content-between">
       <div className="d-flex justify-content-center my-3">
         <button
           className="btn btn-outline-primary"
@@ -29,7 +30,7 @@ const Home = () => {
         <ListItems />
       </div>
       {/* ===== add list ===== */}
-      <div className="col-12 col-md-4  card">
+      <div className="col-12 col-md-4  card h-25">
         <div className="card-body">
           <form onSubmit={handleList}>
             <input
